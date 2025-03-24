@@ -11,7 +11,7 @@ Apresentar, de forma visual e interativa, a evolução dos navegadores, evidenci
 - **Referências Visuais**: Capturas de tela e materiais históricos dos navegadores.
 
 ## Navegadores Abordados
-- **WorldWideWeb (1991)**: Primeiro navegador.
+- **WorldWideWeb (1990)**: Primeiro navegador.
 - **Mosaic (1993)**: Primeiro navegador com interface gráfica.
 - **Netscape Navigator (1994)**: Popularização da navegação na web.
 - **Internet Explorer (1995 - 2013)**: Domínio e declínio da Microsoft no mercado de browsers.
