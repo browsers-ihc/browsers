@@ -227,7 +227,7 @@
     
     <div class="toolbar">
       <div class="toolbar-button" onclick="window.location.href= '../netscape/index.html'">◀</div>
-      <div class="toolbar-button">▶</div>
+      <div class="toolbar-button" onclick="window.location.href= '../firefox/index.html'">▶</div>
       <div class="toolbar-button">✕</div>
       <div class="toolbar-button">⟳</div>
       <div class="toolbar-button">🏠</div>
@@ -280,23 +280,34 @@
   </div>
 
   <script>
-    // TypeScript (transpilado para JavaScript)
-    document.addEventListener('DOMContentLoaded', function() {
-      // Simular comportamento de foco no campo de endereço
+   document.addEventListener('DOMContentLoaded', function() {
+  
       const addressInput = document.querySelector('.address-input');
       
       addressInput.addEventListener('focus', function() {
         this.select();
       });
       
-      // Botões de janela
+      
+      addressInput.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+          const statusText = document.querySelector('.status-text');
+          statusText.textContent = 'Navegando para Firefox...';
+          
+          setTimeout(() => {
+            window.location.href = '../firefox/index.html';
+          }, 1000);
+        }
+      });
+      
+    
       const closeButton = document.querySelectorAll('.window-button')[2];
       
       closeButton.addEventListener('click', function() {
         alert('Obrigado por visitar esta réplica do Internet Explorer!');
       });
       
-      // Botão de voltar
+    
       const backButton = document.querySelectorAll('.toolbar-button')[0];
       
       backButton.addEventListener('click', function() {
@@ -307,8 +318,7 @@
           statusText.textContent = '';
         }, 2000);
       });
-      
-      // Botão home
+ 
       const homeButton = document.querySelectorAll('.toolbar-button')[4];
       
       homeButton.addEventListener('click', function() {
@@ -316,7 +326,7 @@
         statusText.textContent = 'Conectando à página inicial...';
         
         setTimeout(function() {
-          statusText.textContent = '';
+          window.location.href = '../index.html';
         }, 2000);
       });
     });
