@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Safari (Browser) - Wikipedia</title>
     <style>
-        /* Reset básico */
+
         * {
             margin: 0;
             padding: 0;
@@ -28,7 +28,7 @@
             overflow: hidden;
         }
 
-        /* Container principal */
+
         .browser-window {
             width: 980px;
             height: 600px;
@@ -41,7 +41,7 @@
             position: relative;
         }
 
-        /* Barra de título */
+
         .title-bar {
             height: 22px;
             background: linear-gradient(to bottom, #f6f6f6, #d2d2d2);
@@ -51,7 +51,7 @@
             align-items: center;
         }
 
-        /* Botões da janela */
+   
         .window-buttons {
             display: flex;
             margin-left: 7px;
@@ -79,7 +79,7 @@
             border: 1px solid #39812a;
         }
 
-        /* Título da janela */
+  
         .window-title {
             position: absolute;
             left: 0;
@@ -90,7 +90,7 @@
             pointer-events: none;
         }
 
-        /* Barra de ferramentas */
+  
         .toolbar {
             height: 36px;
             background: linear-gradient(to bottom, #e8e8e8, #cfcfcf);
@@ -123,7 +123,7 @@
             fill: #555;
         }
 
-        /* Barra de endereço */
+    
         .address-bar {
             flex-grow: 1;
             height: 22px;
@@ -146,7 +146,7 @@
             border-radius: 2px;
         }
 
-        /* Campo de pesquisa */
+
         .search-bar {
             display: flex;
             align-items: center;
@@ -170,7 +170,7 @@
             color: #999;
         }
 
-        /* Barra de abas */
+
         .tabs-bar {
             height: 22px;
             background-color: #f0f0f0;
@@ -182,7 +182,7 @@
             color: #666;
         }
 
-        /* Estilo básico da aba */
+
         .tab {
             display: flex;
             align-items: center;
@@ -197,7 +197,7 @@
             height: 21px;
         }
 
-        /* Aba ativa com trapézio usando transform */
+   
         .tab.active {
             background: linear-gradient(to bottom, #e8e8e8, #cfcfcf);
             border-top-color: #f3f3f3;
@@ -206,7 +206,7 @@
             transform-origin: bottom;
         }
 
-        /* Conteúdo principal */
+
         .content {
             height: calc(100% - 93px); 
             background-color: #fff;
@@ -214,13 +214,13 @@
             position: relative;
         }
 
-        /* Conteúdo interno */
+
         .inner-content {
             width: calc(100% - 15px);
             height: 100%;
         }
 
-        /* Barra de rolagem */
+
         .scrollbar {
             width: 15px;
             height: calc(100% - 0px);
@@ -247,7 +247,7 @@
         .scroll-arrow-down {
             border-top: 1px solid #ccc;
             border-bottom: none;
-            margin-top: auto; /* Empurra para o final */
+            margin-top: auto; 
         }
 
         .scroll-arrow-icon {
@@ -282,7 +282,7 @@
             top: 10px;
         }
 
-        /* Barra de status */
+    
         .status-bar {
             height: 15px;
             background: linear-gradient(to bottom, #e8e8e8, #d2d2d2);
@@ -295,7 +295,7 @@
             justify-content: flex-end;
         }
 
-        /* Redimensionador no canto inferior direito */
+        
         .resize-handle {
             width: 15px;
             height: 15px;
@@ -363,7 +363,7 @@
 </head>
 <body>
     <div class="browser-window">
-        <!-- Barra de título -->
+   
         <div class="title-bar">
             <div class="window-buttons">
                 <div class="window-button close-button"></div>
@@ -373,17 +373,17 @@
             <div class="window-title">Safari (Browser)</div>
         </div>
         
-        <!-- Barra de ferramentas -->
+ 
         <div class="toolbar">
             <div class="nav-buttons">
-                <div class="nav-button">
+                <div class="nav-button" onclick="window.location.href= '../firefox/index.html'">
                     <a style="margin-top: 4px;" href="#">
                         <svg viewBox="0 0 24 24">
                             <path d="M15 18l-6-6 6-6"></path>
                         </svg>
                     </a>
                 </div>
-                <div class="nav-button">
+                <div class="nav-button" onclick="window.location.href= '../google_chrome/index.html'">
                     <a style="margin-top: 4px;" href="#">
                         <svg viewBox="0 0 24 24">
                             <path d="M9 18l6-6-6-6"></path>
@@ -403,7 +403,7 @@
             </div>
             
             <div class="address-bar">
-                <input style="border: none; width: 100%; height: 100%;" type="text">
+                <div class="address-bar"><input style="border: none; width: 100%;" type="text" class="address-input" ></div>
             </div>
             
             <div class="search-bar">
@@ -412,12 +412,12 @@
             </div>
         </div>
         
-        <!-- Barra de abas -->
+
         <div class="tabs-bar">
             <div class="tab active">Safari (Browser)</div>
         </div>
 
-        <!-- Conteúdo principal -->
+
         <div class="content">
             <div class="inner-content">
                 <div class="safari-history">
@@ -436,7 +436,7 @@
                     </div>
             </div>
             
-            <!-- Barra de rolagem com setinhas -->
+
             <div class="scrollbar">
                 <div class="scroll-track">
                     <div class="scroll-thumb"></div>
@@ -450,10 +450,31 @@
             </div>
         </div>
         
-        <!-- Barra de status com redimensionador -->
+
         <div class="status-bar">
             <div class="resize-handle"></div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+          const addressInput = document.querySelector('.address-input');
+          
+
+          addressInput.addEventListener('keypress', function(event) {
+
+            if (event.key === 'Enter') {
+
+              window.location.href = '../google_chrome/index.html';
+            }
+          });
+    
+
+          const goButton = document.querySelector('.go-button');
+          goButton.addEventListener('click', function() {
+            window.location.href = '../safari/index.html';
+          });
+        });
+      </script>
 </body>
 </html>
