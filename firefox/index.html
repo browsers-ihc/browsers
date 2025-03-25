@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main Page - Wikipedia, the free encyclopedia - Mozilla Firefox</title>
+  <style>
+    a {
+      text-decoration: none; 
+      color: inherit; 
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Tahoma, Arial, sans-serif;
+      font-size: 11px;
+      overflow: hidden;
+      background-color: #ECE9D8;
+    }
+
+    .browser-window {
+      width: 800px;
+      height: 600px;
+      border: 1px solid #000;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      margin: 20px auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .title-bar {
+      background: linear-gradient(to right, #0A246A, #A6CAF0);
+      color: white;
+      padding: 2px 5px;
+      display: flex;
+      align-items: center;
+      height: 22px;
+      position: relative;
+    }
+
+    .title-text {
+      font-weight: bold;
+      margin-left: 5px;
+    }
+
+    .window-controls {
+      display: flex;
+      position: absolute;
+      right: 0.5%;
+    }
+
+    .window-control {
+      width: 16px;
+      height: 16px;
+      margin-left: 2px;
+      background-color: #d4d0c8;
+      border: 1px outset #FFFFFF;
+      text-align: center;
+      line-height: 16px;
+      font-size: 9px;
+    }
+
+    .minimize { font-weight: bold; }
+    .maximize { font-weight: bold; }
+    .close {
+      background-color: #C75050;
+      font-weight: bold;
+      color: white;
+    }
+
+    .menu-bar {
+      display: flex;
+      background-color: #d4d0c8;
+      border-bottom: 1px solid #ACA899;
+      height: 20px;
+    }
+
+    .menu-item {
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+
+    .menu-item:hover {
+      background-color: #316AC5;
+      color: white;
+    }
+
+    .toolbar {
+      display: flex;
+      padding: 4px;
+      background-color: #d4d0c8;
+      border-bottom: 1px solid #ACA899;
+      align-items: center;
+    }
+
+    .nav-button {
+      width: 22px;
+      height: 22px;
+      background-color: #d4d0c8;
+      border: 1px outset #FFFFFF;
+      margin-right: 2px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .address-bar {
+      flex-grow: 1;
+      height: 22px;
+      margin: 0 4px;
+      border: 1px inset #FFFFFF;
+      background-color: white;
+      display: flex;
+      align-items: center;
+      padding-left: 5px;
+    }
+
+    .go-button {
+      width: 22px;
+      height: 22px;
+      background-color: #d4d0c8;
+      border: 1px outset #FFFFFF;
+      margin-right: 2px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 10px;
+      color: #006600;
+      font-weight: bold;
+    }
+    
+    .search-box {
+      width: 100px;
+      height: 22px;
+      border: 1px inset #FFFFFF;
+      background-color: white;
+    }
+
+    .bookmark-bar {
+      display: flex;
+      padding: 2px 4px;
+      background-color: #d4d0c8;
+      border-bottom: 1px solid #ACA899;
+      align-items: center;
+      height: 22px;
+    }
+
+    .bookmark-item {
+      display: flex;
+      align-items: center;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    .bookmark-icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+      background-color: #FF9900;
+      border-radius: 50%;
+    }
+
+    .red-icon {
+      background-color: #CC0000;
+    }
+
+    .content-area {
+      flex-grow: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    .browser-content {
+      flex-grow: 1;
+      background-color: white;
+      overflow: auto;
+    }
+
+    .firefox-history {
+      background-color: white;
+      border: 1px solid #c0c0c0;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+      padding: 20px;
+      height: 100%; /* Make content fill entire vertical space */
+      box-sizing: border-box;
+      overflow: auto; /* Add scrolling if content exceeds height */
+    }
+
+    .firefox-title {
+      color: red;
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 20px;
+      border-bottom: 2px solid orange;
+      padding-bottom: 10px;
+      font-size: xx-large;
+    }
+
+    .firefox-info {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .firefox-info li {
+      margin-bottom: 15px;
+      padding-left: 30px;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .firefox-info li:before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      color: red;
+      font-weight: bold;
+    }
+
+    .firefox-highlight {
+      background-color: #e6e6fa;
+      border-left: 4px solid orange;
+      padding: 10px;
+      margin-top: 15px;
+      font-style: italic;
+      font-size: x-large;
+    }
+
+    .status-bar {
+      height: 20px;
+      background-color: #d4d0c8;
+      border-top: 1px solid #ACA899;
+      display: flex;
+      align-items: center;
+      padding: 0 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="browser-window">
+    <div class="title-bar">
+      <img style="height: 20px; width: 20px;" src="Mozilla_Firefox_logo_2004.svg.png" alt="">
+      <div class="title-text">Main Page - Wikipedia, the free encyclopedia - Mozilla Firefox</div>
+      <div class="window-controls">
+        <div class="window-control minimize">_</div>
+        <div class="window-control maximize">□</div>
+        <div class="window-control close">X</div>
+      </div>
+    </div>
+    <div class="menu-bar">
+      <div class="menu-item">File</div>
+      <div class="menu-item">Edit</div>
+      <div class="menu-item">View</div>
+      <div class="menu-item">Go</div>
+      <div class="menu-item">Bookmarks</div>
+      <div class="menu-item">Tools</div>
+      <div class="menu-item">Help</div>
+    </div>
+    <div class="toolbar">
+      <div class="nav-button"><a href="#">◀</a></div>
+      <div class="nav-button"><a href="#">▶</a></div>
+      <div class="nav-button">↻</div>
+      <div class="nav-button">✕</div>
+      <div class="nav-button">🏠</div>
+      <div class="address-bar"><input style="border: none; width: 100%;" type="text"></div>
+      <div class="go-button">Go</div>
+      <div class="search-box"><input style="border: none; width: 100%; height: 100%;" type="text"></div>
+    </div>
+    <div class="bookmark-bar">
+      <div class="bookmark-item">
+        <img src="2.png" alt="">
+        <span>Getting Started</span>
+      </div>
+      <div class="bookmark-item">
+        <img src="1.png" alt="">
+        <span>Latest Headlines</span>
+      </div>
+    </div>
+    <div class="content-area">
+      <div class="browser-content">
+        <div class="firefox-history">
+          <h1 class="firefox-title">Firefox</h1>
+          
+          <ul class="firefox-info">
+              <li style="font-size: x-large;">Criado como resposta ao domínio do Internet Explorer.</li>
+              
+              <li style="font-size: x-large;">Enfatizava segurança, extensibilidade e padrões da web. </li>
+              
+              <li style="font-size: x-large;">Design simples e funcional, com interface limpa e suporte a extensões.</li>    
+          </ul>
+
+          <div class="firefox-highlight">
+              "Popularizou o conceito de extensões, incentivando a personalização da navegação."
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="status-bar">
+      <div class="status-item">Done</div>
+    </div>
+  </div>
+</body>
+</html>
