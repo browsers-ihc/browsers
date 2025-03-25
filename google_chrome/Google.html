@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Chrome - Primeira Versão</title>
+    <style>
+
+        a {
+            text-decoration: none; 
+            color: inherit; 
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow: hidden;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .browser-window {
+            height: 600px; 
+            width: 980px;
+            margin: 20px auto;
+            border: 1px solid #467fcc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; 
+        }
+        
+        .browser-header {
+            background: linear-gradient(to bottom, #6bacef, #467fcc);
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            padding: 0px 2px 0 2px;
+        }
+        
+        .window-controls {
+            display: flex;
+            justify-content: flex-end;
+            height: 16px;
+            margin-bottom: 3px;
+        }
+        
+        .window-control {
+            width: 16px;
+            height: 16px;
+            margin-left: 0px;
+            border: 1px solid #497bb8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+        }
+        
+        .control-minimize {
+            font-weight: bold;
+        }
+        
+        .control-maximize {
+            font-size: 9px;
+        }
+        
+        .control-close {
+            width: 32px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .tab-bar {
+            display: flex;
+            height: 30px;
+            padding-top: 5px;
+            padding-left: 5px;
+        }
+        
+        .tab {
+            background-color: #f7f7ff;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            padding: 4px 10px 0px;
+            margin-right: 0px;
+            display: flex;
+            align-items: center;
+            min-width: 100px;
+            height: 21px;
+            font-size: 12px;
+            position: relative;
+            margin-bottom: -1px;
+            z-index: 1;
+            clip-path: polygon(0% 100%, 40% 100%, 60% 100%, 100% 100%, 92% 0%, 7% 0%);
+        }   
+        
+        .tab.active {
+            margin-left: -7px;
+            background-color: #a0c6f4;
+            border-top: 1px solid #8db0d8;
+            border-left: 1px solid #8db0d8;
+            border-right: 1px solid #8db0d8;
+            border-top-left-radius: 12px;
+            z-index: 0;
+            height: 21px;
+            clip-path: polygon(0% 100%, 40% 100%, 60% 100%, 100% 100%, 92.5% 0%, 0% 0%);
+        }
+        
+        .tab img {
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+        }
+        
+        .new-tab {
+            background-color: #a0c6f4;
+            border: 1px solid #4687d2;
+            width: 24px;
+            font-size: 16px;
+            text-align: center;
+            line-height: 21px;
+            height: 21px;
+            cursor: pointer;
+            margin-top: 3px;
+            margin-left: 1px;
+            clip-path: polygon(0% 10%, 25% 100%, 75% 100%, 100% 100%, 75% 10%);
+        }
+
+        .address-bar-container {
+            background-color: #e7eff7;
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navigation-buttons {
+            display: flex;
+            margin-right: 5px;
+        }
+        
+        .nav-button {
+            width: 24px;
+            height: 24px;
+            background-color: #e7eff7;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            margin-right: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .address-bar {
+            flex-grow: 1;
+            height: 24px;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            padding: 0 5px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            margin-left: 5px;
+        }
+        
+        .menu-bar {
+            background-color: #f1f1f1;
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            font-size: 12px;
+        }
+        
+        .menu-item {
+            margin-right: 15px;
+            color: #4285F4;  /* Tom azulado do Google */
+            cursor: pointer;
+        }
+        
+        .menu-item.active {
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .google-sign {
+            margin-left: auto;
+            display: flex;
+        }
+        
+        .google-text {
+            color: #4285F4;  /* Tom azulado do Google */
+            font-weight: bold;
+        }
+        
+        .page-content {
+            flex-grow: 1;
+            background-color: white;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        .google-history {
+            background-color: white;
+            border: 1px solid #c0c0c0;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            max-width: 750px;
+            margin: 0 auto;
+            height: 100%;
+        }
+
+        .google-title {
+            color: #4285F4;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #4285F4;
+            padding-bottom: 10px;
+            font-size: xx-large;
+        }
+
+        .google-info {
+            list-style-type: none;
+            padding: 0;
+            font-size: x-large;
+        }
+
+        .google-info li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .google-info li:before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: #4285F4;
+            font-weight: bold;
+        }
+
+        .google-highlight {
+            background-color: #e6e6fa;
+            border-left: 4px solid #4285F4;
+            padding: 10px;
+            margin-top: 15px;
+            font-style: italic;
+            font-size: x-large;
+        }
+    </style>
+</head>
+<body>
+    <div class="browser-window">
+        <div class="browser-header">
+            <div class="window-controls">
+                <div class="window-control control-minimize">_</div>
+                <div class="window-control control-maximize">□</div>
+                <div class="window-control control-close">✕</div>
+            </div>
+            <div class="tab-bar">
+                <div class="tab">
+                    <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/3.0.1/google.svg" alt="Google Icon">
+                    <span>Google</span>
+                </div>
+                <div class="tab active">
+                    <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/3.0.1/google.svg" alt="Google Icon">
+                    <span>New Tab</span>
+                </div>
+                <div class="new-tab">+</div>
+            </div>
+        </div>
+        <div class="address-bar-container">
+            <div class="navigation-buttons">
+                <div class="nav-button"><a href="#">←</a></div>
+                <div class="nav-button"><a href="#">→</a></div>
+                <div class="nav-button">↻</div>
+            </div>
+            <div class="address-bar">
+                <input style="border: none; width: 100%;" type="text">
+            </div>
+            <div class="action-buttons">
+                <div class="nav-button">☆</div>
+                <div class="nav-button">⋮</div>
+            </div>
+        </div>
+        <div class="menu-bar">
+            <div class="menu-item active">Web</div>
+            <div class="menu-item">Images</div>
+            <div class="menu-item">Maps</div>
+            <div class="menu-item">News</div>
+            <div class="menu-item">Shopping</div>
+            <div class="menu-item">Gmail</div>
+            <div class="menu-item">more ▼</div>
+            <div class="google-sign">
+                <div class="menu-item google-text">Google</div>
+                <span style="margin: 0 5px;">|</span>
+                <div class="menu-item">Sign in</div>
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="google-history">
+                <h1 class="google-title">Google Chrome</h1>
+                
+                <ul class="google-info">
+                    <li>- Desenvolvido pelo Google, com motor Blink.  </li>
+                    
+                    <li>- Interface extremamente minimalista e focada em velocidade.  </li>
+                    
+                    <li>- Introduziu a Omnibox (barra única para buscas e URLs).</li>
+                </ul>
+      
+                <div class="google-highlight">
+                    "Rapidamente se tornou o navegador mais usado do mundo, influenciando concorrentes a adotarem um design mais simples e eficiente."
+                </div>
+        </div>
+    </div>
+</body>
+</html>
