@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microsoft Internet Central</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Tahoma', 'Arial', sans-serif;
+      overflow: hidden;
+      background-color: #c0c0c0;
+    }
+    
+    .window {
+      width: 800px;
+      height: 600px;
+      background-color: #c0c0c0;
+      border: 2px solid #000;
+      margin: 20px auto;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+    
+    .title-bar {
+      height: 18px;
+      background: linear-gradient(to right, #000080, #1084d0);
+      display: flex;
+      align-items: center;
+      padding: 2px;
+      color: white;
+      font-weight: bold;
+      font-size: 12px;
+    }
+    
+    .title-icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+    }
+    
+    .title-text {
+      flex-grow: 1;
+    }
+    
+    .window-controls {
+      display: flex;
+    }
+    
+    .window-button {
+      width: 16px;
+      height: 14px;
+      background-color: #c0c0c0;
+      border: 1px solid #000;
+      margin-left: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      cursor: pointer;
+    }
+    
+    .menu-bar {
+      display: flex;
+      background-color: #c0c0c0;
+      border-bottom: 1px solid #808080;
+      padding: 2px 0;
+      font-size: 12px;
+    }
+    
+    .menu-item {
+      padding: 0 8px;
+      cursor: pointer;
+    }
+    
+    .menu-item:hover {
+      background-color: #000080;
+      color: white;
+    }
+    
+    .toolbar {
+      display: flex;
+      background-color: #c0c0c0;
+      border-bottom: 1px solid #808080;
+      padding: 2px;
+      align-items: center;
+    }
+    
+    .toolbar-button {
+      width: 24px;
+      height: 24px;
+      background-color: #c0c0c0;
+      border: 1px solid #808080;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      margin-right: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    
+    .toolbar-separator {
+      width: 2px;
+      height: 22px;
+      background-color: #808080;
+      margin: 0 4px;
+    }
+    
+    .address-bar {
+      display: flex;
+      background-color: #c0c0c0;
+      padding: 5px;
+      align-items: center;
+    }
+    
+    .address-label {
+      font-size: 12px;
+      margin-right: 5px;
+    }
+    
+    .address-input {
+      width: 650px;
+      height: 20px;
+      border: 1px solid #808080;
+      border-top-color: #404040;
+      border-left-color: #404040;
+      background-color: white;
+      font-size: 12px;
+      padding: 2px 5px;
+    }
+    
+    .windows-logo {
+      width: 32px;
+      height: 32px;
+      margin-left: 10px;
+    }
+    
+    .browser-content {
+      position: absolute;
+      top: 116px;
+      bottom: 22px;
+      left: 0;
+      right: 0;
+      background-color: #ffffff;
+      overflow: auto;
+      border-top: 1px solid #808080;
+    }
+    .content-title {
+      color: #000080;
+      font-size: 18px;
+      border-bottom: 2px solid #000080;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+    
+    .content-section {
+      background-color: #f0f0f0;
+      border: 1px solid #c0c0c0;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .content-section h2 {
+      color: #000080;
+      margin-top: 0;
+      font-size: 16px;
+      border-bottom: 1px solid #c0c0c0;
+      padding-bottom: 5px;
+    }
+    
+    .content-section p {
+      margin: 10px 0;
+      font-size: 14px;
+    }
+    
+    .highlight {
+      color: #000080;
+      font-weight: bold;
+    }
+    .status-bar {
+      height: 16px;
+      background-color: #c0c0c0;
+      border-top: 1px solid #808080;
+      font-size: 11px;
+      padding: 2px 5px;
+      position: absolute;
+      bottom: 0;
+      width: 500px;
+      display: flex;
+    }
+    .ie-logo{
+      position: absolute;
+      right: 0px;
+      top: 40px;
+      width: 80px;
+      height: 70px;
+    }
+    .ie-logo img{
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="window">
+    <div class="title-bar">
+      <img src="ie-icon.png" class="title-icon" alt="IE Icon">
+      <div class="title-text">Microsoft Internet Explorer </div>
+      <div class="window-controls">
+        <div class="window-button">_</div>
+        <div class="window-button">□</div>
+        <div class="window-button">X</div>
+      </div>
+    </div>
+    
+    <div class="menu-bar">
+      <div class="menu-item">File</div>
+      <div class="menu-item">Edit</div>
+      <div class="menu-item">View</div>
+      <div class="menu-item">Favorites</div>
+      <div class="menu-item">Help</div>
+    </div>
+    
+    <div class="toolbar">
+      <div class="toolbar-button" onclick="window.location.href= '../netscape/index.html'">◀</div>
+      <div class="toolbar-button">▶</div>
+      <div class="toolbar-button">✕</div>
+      <div class="toolbar-button">⟳</div>
+      <div class="toolbar-button">🏠</div>
+      <div class="toolbar-separator"></div>
+      <div class="toolbar-button">📁</div>
+      <div class="toolbar-button">🔍</div>
+      <div class="toolbar-button">⭐</div>
+      <div class="toolbar-separator"></div>
+      <div class="toolbar-button">A</div>
+      <div class="toolbar-button">A</div>
+      <div class="toolbar-separator"></div>
+      <div class="toolbar-button">✂</div>
+      <div class="toolbar-button">📝</div>
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAC/0lEQVRYR+2WTWgTQRTH/29mkw9TtLQVRUEUFQ9+UKigFEXBkwepBz0VPAkeRDx58CKKoFJEUatisBqTbJrvot7Ei4IXD0KlHgQPgnoQUbCYmtJskp15MruJSZpJdhJCQXwXZmbf+/3nvXkfBFP+0JTrYwZg2gh0XMG2ffhxBrGbKLLXYOWOI5xbi0rhIYLAPwU0JwEyHIcxwMovoWJ6sG0P1r5dHwN4tO9S0zpmAKJiWDYKRrS1dXkOk0G5kPVtKDUimPZ5WOZ5MGaGvXL+ZO3W5Zfr+9UtoCEUy35YTQCTFV+z10IkTkKqBQxWLsrAGKdnRCWvjRhvUwAC4NzNKL6QUn2EVLMYjJ1NVE9ELyml7k5YwDC9o0q6j1NKX4rYUCIAodwvjHOrJ0LwlFtbYJXm1/qWJnEjQFzxEO8AgPKLHUPdXYuxR1oAQ7mbGXPPYgoCxsH4JQThRaSXXwmX0cF7ywoOJAZoSbmUv9EZ+wTLPNTEJ/4/Y3fR338wTOYkFcQASUNR8s5TxsINDeK8/pBu/+5EAK3M2hUk+4ZQ7jYQcqFRAf+FIOxFlH+GWHlniZ8yt1D8HL0x5qC5XYFvPVnx4Jb83tDq/QjcbZRxzXNyAmMMpUnYKNZuBbKMh8UuJgvQjfIZY+hNU4FoRUAZsytlGOkBlHuGENJL5f9wXN7d9QPoBlCqwS2zI1WADiuQA0A7Gl4oLaB5DFsAqG//nyb0I7Qg1QiEU8BYLsYHdcxbR6DNMdQrEIP1+mDHJOw4hokXIunebgSgxRRsDoG+D3QC0BfSuFE0AUY5WDcK6/dBK4DeB6IwJK1jM4BWJmx5Fe+4D8QBNEvCrteBToTbrgNJAZrVgZ4GaY9hqmPYbgyTzIHS31ICNFtG/yQCbXdCPQXbZsLmMZTmF1HU72LhbyvxV7GwJNxJIgfSXsjmXkhbFM++kHRxKU8FIEmS9dKZAaQdoVnAVFfgD6JaVzBCaXJnAAAAAElFTkSuQmCC" class="windows-logo" alt="Windows logo">
+    </div>
+    
+    <div class="address-bar">
+      <div class="address-label">Address:</div>
+      <input type="text" class="address-input">
+      <div class="ie-logo"><img src="ie-logo.png" alt="">
+    </div>
+    
+    <div class="browser-content">
+      <div class="content-title">Sobre o Internet Explorer 3.0</div>
+    
+    <div class="content-section">
+      <h2>História e Desenvolvimento</h2>
+      <p>Desenvolvido pela <span class="highlight">Microsoft</span>, o Internet Explorer foi integrado ao <span class="highlight">Windows 95</span>, revolucionando a experiência de navegação web.</p>
+    </div>
+    
+    <div class="content-section">
+      <h2>Características Principais</h2>
+      <p>Com uma interface <span class="highlight">semelhante ao Netscape</span>, o navegador se destacou por sua melhor integração ao sistema operacional Windows.</p>
+    </div>
+    
+    <div class="content-section">
+      <h2>Tecnologia Inovadora</h2>
+      <p>Introduziu o suporte a <span class="highlight">ActiveX</span>, permitindo interações avançadas e mais dinâmicas na web.</p>
+    </div>
+    
+    <div class="content-section">
+      <h2>Impacto no Mercado</h2>
+      <p>Ganhou participação significativa no mercado por vir <span class="highlight">pré-instalado no Windows</span>, contribuindo para a famosa "Guerra dos Navegadores".</p>
+    </div>
+    </div>
+    
+    <div class="status-bar">
+      <div class="status-text"></div>
+    </div>
+  </div>
+
+  <script>
+    // TypeScript (transpilado para JavaScript)
+    document.addEventListener('DOMContentLoaded', function() {
+      // Simular comportamento de foco no campo de endereço
+      const addressInput = document.querySelector('.address-input');
+      
+      addressInput.addEventListener('focus', function() {
+        this.select();
+      });
+      
+      // Botões de janela
+      const closeButton = document.querySelectorAll('.window-button')[2];
+      
+      closeButton.addEventListener('click', function() {
+        alert('Obrigado por visitar esta réplica do Internet Explorer!');
+      });
+      
+      // Botão de voltar
+      const backButton = document.querySelectorAll('.toolbar-button')[0];
+      
+      backButton.addEventListener('click', function() {
+        const statusText = document.querySelector('.status-text');
+        statusText.textContent = 'Nenhum histórico disponível';
+        
+        setTimeout(function() {
+          statusText.textContent = '';
+        }, 2000);
+      });
+      
+      // Botão home
+      const homeButton = document.querySelectorAll('.toolbar-button')[4];
+      
+      homeButton.addEventListener('click', function() {
+        const statusText = document.querySelector('.status-text');
+        statusText.textContent = 'Conectando à página inicial...';
+        
+        setTimeout(function() {
+          statusText.textContent = '';
+        }, 2000);
+      });
+    });
+  </script>
+</body>
+</html>

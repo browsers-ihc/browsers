@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorldWideWeb - Recriação</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: monospace;
+            background-color: #666666;
+        }
+        
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        
+        .menu-bar{
+            display: flex;
+            flex-direction: column;
+            width: 150px;
+            padding: 5px;
+        }
+        button{
+            display: flex;
+            background-color: #AAA;
+            border: 1,5px solid black;
+            cursor: pointer;
+            box-shadow: 2px 2px 0px black;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .menu-title{
+            color: #FFF;
+            background-color: #000;
+            border: 1,5px solid black;
+            box-shadow: 2px 2px #000;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: large;
+        }
+        .content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 20px;
+            
+        }
+        
+        .window {
+            width: 700px;
+            height: 650px;
+            background-color: #AAA;
+            border: 2px solid #000;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+            position: absolute;
+        }
+        
+        .window-header {
+            background-color: #000000;
+            color: white;
+            padding: 2px 5px;
+            font-weight: bold;
+            font-size: large;
+            display: flex;
+            position: relative;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .close-button {
+            width: 16px;
+            height: 16px;
+            background-color: #c0c0c0;
+            border: 1px outset #eee;
+            color: #000;
+            text-align: center;
+            line-height: 14px;
+            cursor: pointer;
+            position: absolute;
+            right: 1px;
+        }
+        
+        .window-content {
+            background-color: white;
+            height: calc(100% - 22px);
+            overflow: auto;
+            border-top: 1px solid #333;
+            padding: 10px;
+        }
+
+        .reference-input {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        #navigateWindow {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="menu-bar">
+            <div class="menu-title">WorldWideWeb</div>
+            <button>Info <span class="shortcut">▶</span></button>
+            <button id="navigateBtn">Navigate <span class="shortcut">▶</span></button>
+            <button>Document <span class="shortcut">▶</span></button>
+            <button>Edit <span class="shortcut">▶</span></button>
+            <button>Links <span class="shortcut">▶</span></button>
+            <button>Style <span class="shortcut">▶</span></button>
+            <button>Print <span class="shortcut">p</span></button>
+            <button>Page Layout </button>
+            <button>Windows </button>
+            <button>Services </button>
+            <button>Hide <span class="shortcut">h</span></button>
+            <button>Quit <span class="shortcut">q</span></button>
+        </div>
+        <div class="content">
+            <div class="window">
+                <div class="window-header">
+                    <span>The World Wide Web project</span>
+                    <div class="close-button">X</div>
+                </div>
+                <div class="window-content">
+                    <div style="font-family: monospace; background-color: white; padding: 10px; line-height: 1.5;">
+                        <h2 style="color: black; border-bottom: 1px solid #333; padding-bottom: 5px;">Sobre o WorldWideWeb</h2>
+                        
+                        <ul style="list-style-type: none; padding: 0;">
+                            <li>• Criado por Tim Berners-Lee, foi o <strong>primeiro navegador da história</strong>.</li>
+                            <li>• <em>Interface minimalista baseada em texto</em>, sem suporte a imagens.</li>
+                            <li>• O foco era permitir a <strong>visualização de documentos em hipertexto</strong>.</li>
+                            <li>• Funcionava <em>apenas em sistemas NeXT</em>.</li>
+                            <li>• Introduziu o conceito de <strong>navegação por hiperlinks</strong>, mas sem uma interface gráfica sofisticada.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="navigateWindow" class="window">
+                <div class="window-header">
+                    <span>Open using hypertext reference</span>
+                    <div class="close-button" onclick="closeNavigateWindow()">X</div>
+                </div>
+                <div class="window-content">
+                    <label for="referenceInput">Reference:</label>
+                    <input type="text" id="referenceInput" class="reference-input" placeholder="http://">
+                    
+                    <div class="button-row">
+                        <button onclick="openDiagnostics()">Diagnostics only</button>
+                        <button onclick="openShowingSource()">Open showing source</button>
+                        <button onclick="openReference()">Open</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navigateBtn = document.getElementById('navigateBtn');
+            navigateBtn.addEventListener('click', openNavigateWindow);
+        });
+
+        function openNavigateWindow() {
+            document.getElementById('navigateWindow').style.display = 'block';
+        }
+
+        function closeNavigateWindow() {
+            document.getElementById('navigateWindow').style.display = 'none';
+        }
+
+        function openDiagnostics() {
+            alert('Diagnostics only');
+        }
+
+        function openShowingSource() {
+            alert('Open showing source');
+        }
+
+        function openReference() {
+            window.location.href= "../mosaic/index.html";
+        }
+    </script>
+</body>
+</html>

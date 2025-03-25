@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCSA Mosaic - Réplica</title>
+    <style>
+        @font-face {
+            font-family: "Pixeled";
+            src: url(Pixeled.ttf);
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Helvetica,'MS Sans Serif', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #c0c0c0;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .window-container {
+            width: 800px;
+            height: 600px;
+            border: 2px solid #000;
+            margin: 20px auto;
+            background-color: #c0c0c0;
+            position: relative;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .title-bar {
+            height: 22px;
+            background: black;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2px 5px;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+        }
+
+        .title-text {
+            flex-grow: 1;
+            text-align: left;
+            color: #32D738;
+        }
+
+        .window-controls {
+            display: flex;
+        }
+
+        .control-button {
+            width: 16px;
+            height: 16px;
+            background-color: #c0c0c0;
+            border: 1px solid #000;
+            margin-left: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .menu-bar {
+            height: 22px;
+            background-color: #c0c0c0;
+            border-bottom: 1px solid #808080;
+            display: flex;
+            padding: 2px 5px;
+        }
+
+        .menu-item {
+            margin-right: 15px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: underline;
+            text-decoration-color: #000;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 2px;
+        }
+
+        .toolbar {
+            height: 38px;
+            background-color: #c0c0c0;
+            border-bottom: 1px solid #808080;
+            display: flex;
+            align-items: center;
+            padding: 2px 5px;
+            
+        }
+
+        .toolbar-button {
+            width: 24px;
+            height: 24px;
+            background-color: #c0c0c0;
+            border-top: 1px solid #ffffff;
+            border-left: 1px solid #ffffff;
+            border-right: 1px solid #808080;
+            border-bottom: 1px solid #808080;
+            margin-right: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .toolbar-button img {
+            width: 16px;
+            height: 16px;
+        }
+
+        .separator {
+            width: 2px;
+            height: 24px;
+            background-color: #808080;
+            margin: 0 5px;
+        }
+
+        .location-bar {
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            background-color: #c0c0c0;
+            border-bottom: 1px solid #808080;
+        }
+        
+        .location-label {
+            font-size: 12px;
+            margin-right: 10px;
+        }
+        
+        .location-input {
+            width: 650px;
+            height: 20px;
+            border: 2px inset #808080;
+            background-color: white;
+        }
+
+        .content-area {
+            position: absolute;
+            top: 130px;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            overflow: auto;
+            border-top: 1px solid #808080;
+        }
+        .mosaic-content {
+            background-color: white;
+            border: 1px solid #c0c0c0;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            padding: 30px;
+            max-width: 700px;
+            margin: 20px auto;
+        }
+
+        .mosaic-title {
+            color: #32D738;
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #32D738;
+            padding-bottom: 15px;
+        }
+
+        .mosaic-features {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .feature-card {
+            background-color: #f0f0f0;
+            border-left: 5px solid #32D738;
+            padding: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateX(10px);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .feature-title {
+            color: #32D738;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .feature-description {
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .mosaic-quote {
+            font-style: italic;
+            text-align: center;
+            color: #666;
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #32D738;
+        }
+        .status-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background-color: #c0c0c0;
+            border-top: 1px solid #808080;
+            display: flex;
+        }
+
+        .status-button {
+            width: 100px;
+            height: 28px;
+            border-top: 1px solid #ffffff;
+            border-left: 1px solid #ffffff;
+            border-right: 1px solid #808080;
+            border-bottom: 1px solid #808080;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1px;
+            font-size: 14px;
+        }
+
+        .mosaic-logo {
+            position: absolute;
+            right: 0px;
+            top: 52px;
+            width: 80px;
+            height: 70px;
+        }
+
+        .mosaic-logo img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="window-container">
+        <div class="title-bar">
+            <div class="title-text">NCSA Mosaic Home Page - NCSA Mosaic</div>
+            <div class="window-controls">
+                <div class="control-button">_</div>
+                <div class="control-button">□</div>
+                <div class="control-button">X</div>
+            </div>
+        </div>
+        <div class="menu-bar">
+            <div class="menu-item">File</div>
+            <div class="menu-item">Edit</div>
+            <div class="menu-item">Source Manager</div>
+            <div class="menu-item">View</div>
+            <div class="menu-item">Navigate</div>
+            <div class="menu-item">Tools</div>
+            <div class="menu-item">Hotlists</div>
+            <div class="menu-item">Help</div>
+        </div>
+        <div class="toolbar">
+            <div class="toolbar-button" ><div style="font-size: 16px;">🖊️</div></div>
+            <div class="toolbar-button"><div style="font-size: 16px;">💾</div></div>
+            <div class="toolbar-button"><div style="font-size: 16px;">⟳</div></div>
+            <div class="toolbar-button"><div style="font-size: 16px;">⌂</div></div>
+            <div class="toolbar-button"><div style="font-size: 16px;">📄</div></div>
+            <div class="toolbar-button"><div style="font-size: 16px;">🔍</div></div>
+            <div class="toolbar-button"><div style="font-size: 16px;">⚙️</div></div>
+            <div class="toolbar-button"><div style="font-size: 16px;">❓</div></div>
+            <div class="separator"></div>
+            <div class="toolbar-button" onclick="window.location.href= '../worldwideweb/index.html'"><div style="font-size: 16px;">◀</div></div>
+            <div class="toolbar-button" onclick="window.location.href= '../netscape/index.html'"><div style="font-size: 16px;">▶</div></div>
+            <div class="separator"></div>
+            <div class="toolbar-button"><div style="font-size: 16px;">🔄</div></div>
+            <div class="toolbar-button"><div style="font-size: 16px;">🏠</div></div>
+            <div class="separator"></div>
+            <div class="toolbar-button"><div style="font-size: 16px;">📁</div></div>
+            <div class="toolbar-button"><div style="font-size: 16px;">📋</div></div>
+            <div class="toolbar-button"><div style="font-size: 16px;">📝</div></div>
+            <div class="toolbar-button"><div style="font-size: 16px;">Ho</div></div>
+        </div>
+        <div class="location-bar">
+            <div class="toolbar-button"><div style="font-size: 16px;">X</div></div>
+            <div class="toolbar-button"><div style="font-size: 16px;">✓</div></div>
+            <div class="location-input"></div>
+            <div class="mosaic-logo"><img src="mosaic-logo.png" alt="">
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="mosaic-content">
+                <h1 class="mosaic-title">NCSA Mosaic: Revolucionando a Web</h1>
+                
+                <div class="mosaic-features">
+                    <div class="feature-card">
+                        <div class="feature-title">Origem Inovadora</div>
+                        <div class="feature-description">Desenvolvido pela NCSA (National Center for Supercomputing Applications), o Mosaic representou um marco na história da internet.</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-title">Interface Revolucionária</div>
+                        <div class="feature-description">Primeira interface gráfica a exibir texto e imagens simultaneamente, quebrando barreiras de visualização na web.</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-title">Recursos Pioneiros</div>
+                        <div class="feature-description">Introduziu botões de navegação, barra de rolagem e suporte a múltiplas janelas, simplificando a experiência do usuário.</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-title">Democratização Digital</div>
+                        <div class="feature-description">Popularizou a web ao torná-la mais acessível e intuitiva para usuários comuns, transformando a internet.</div>
+                    </div>
+                </div>
+        
+                <div class="mosaic-quote">
+                    "A revolução da internet não foi apenas tecnológica, mas humana: tornar o complexo, simples."
+                </div>
+            </div>
+        </div>
+        <div class="status-bar">
+            <div class="status-button">NCSA</div>
+            <div class="status-button">Mosaic</div>
+            <div class="status-button">Photo CD</div>
+            <div class="status-button">Metasearch</div>
+        </div>
+    </div>
+
+    <script>
+        // TypeScript (convertido para JavaScript)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Adiciona interatividade aos botões
+            const locationInput = document.querySelector('.location-input');
+            locationInput.addEventListener('click', function() {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.style.width = '100%';
+                input.style.height = '100%';
+                input.style.border = 'none';
+                input.style.outline = 'none';
+                
+                locationInput.innerHTML = '';
+                locationInput.appendChild(input);
+                input.focus();
+                
+                input.addEventListener('keydown', function(event) {
+                    if (event.key === 'Enter') {
+                        // Simula navegação
+                        window.location.href= "../netscape/index.html";
+                    }
+                });
+            });
+            const buttons = document.querySelectorAll('.toolbar-button, .status-button, .menu-item, .control-button');
+            
+            buttons.forEach(button => {
+                button.addEventListener('mousedown', function() {
+                    this.style.borderTop = '1px solid #808080';
+                    this.style.borderLeft = '1px solid #808080';
+                    this.style.borderRight = '1px solid #ffffff';
+                    this.style.borderBottom = '1px solid #ffffff';
+                });
+                
+                button.addEventListener('mouseup', function() {
+                    this.style.borderTop = '1px solid #ffffff';
+                    this.style.borderLeft = '1px solid #ffffff';
+                    this.style.borderRight = '1px solid #808080';
+                    this.style.borderBottom = '1px solid #808080';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.borderTop = '1px solid #ffffff';
+                    this.style.borderLeft = '1px solid #ffffff';
+                    this.style.borderRight = '1px solid #808080';
+                    this.style.borderBottom = '1px solid #808080';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

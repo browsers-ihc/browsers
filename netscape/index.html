@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netscape Navigator 1.0N</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: monospace, sans-serif;
+            background-color: #c0c0c0;
+            overflow: hidden;
+        }
+        
+        .browser-window {
+            width: 800px;
+            height: 600px;
+            margin: 20px auto;
+            border: 2px solid #000;
+            display: flex;
+            flex-direction: column;
+            font-family: monospace;
+        }
+        
+        .title-bar {
+            background-color: #000080;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 3px 5px;
+            font-weight: bold;
+            font-size: 12px;
+            font-family: monospace;
+            position: relative;
+        }
+        .n{
+            font-size: large;
+            font-family: 'Roboto Mono';
+            color: #5454e0;
+            text-shadow: 1px 1px #FFF;
+            margin-right: 4px;
+        }
+        
+        .window-controls {
+            display: flex;
+            position: absolute;
+            right: 0;
+            color: black;
+            font-weight: bold;
+        }
+        
+        .menu-bar {
+            display: flex;
+            background-color: #c0c0c0;
+            border-bottom: 1px solid #808080;
+            padding: 2px 5px;
+            font-size: 12px;
+        }
+        
+        .menu-item {
+            margin-right: 15px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .menu-item:hover {
+            text-decoration: underline;
+        }
+        
+        .toolbar {
+            display: flex;
+            background-color: #c0c0c0;
+            padding: 5px;
+            border-bottom: 1px solid #808080;
+        }
+        
+        .toolbar-button {
+            width: 40px;
+            height: 40px;
+            margin-right: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 10px;
+            border-top: 1px solid white;
+            border-left: 1px solid white;
+            border-right: 1px solid #808080;
+            border-bottom: 1px solid #808080;
+            
+        }
+        .toolbar-icon {
+            width: 20px;
+            height: 20px;
+            margin-bottom: 2px;
+            background-color: #c0c0c0;
+            
+        }
+        
+        .location-bar {
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            background-color: #c0c0c0;
+            border-bottom: 1px solid #808080;
+            font-weight: bold;
+        }
+        
+        .location-label {
+            font-size: 12px;
+            margin-right: 10px;
+        }
+        
+        .location-input {
+            flex-grow: 1;
+            height: 20px;
+            border: 2px inset #808080;
+            background-color: white;
+        }
+        
+        .netscape-logo {
+            width: 40px;
+            height: 40px;
+            background-color: #000080;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+            margin-left: 10px;
+        }
+        .netscape-logo img{
+            width: 100%;
+            height: 100%;
+        }
+        
+        .navigation-tabs {
+            display: flex;
+            background-color: #c0c0c0;
+            padding: 2px 5px;
+            font-size: 12px;
+            border-bottom: 1px solid #808080;
+            font-weight: bolder;
+        }
+        
+        .nav-tab {
+            padding: 3px 10px;
+            margin-right: 2px;
+            background-color: #c0c0c0;
+            border: 1px solid #808080;
+            border-bottom: none;
+            cursor: pointer;
+        }
+        
+        .nav-tab.active {
+            background-color: #c0c0c0;
+            border-top: 1px solid #808080;
+            border-left: 1px solid #808080;
+            border-right: 1px solid #808080;
+            border-bottom: 1px solid #c0c0c0;
+            position: relative;
+            top: 1px;
+        }
+        
+        .content-area {
+            flex-grow: 1;
+            background-color: white;
+            position: relative;
+            overflow: auto;
+            border: 1px inset #808080;
+        }
+        .netscape-history {
+            background-color: white;
+            border: 1px solid #c0c0c0;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .netscape-title {
+            color: #000080;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #000080;
+            padding-bottom: 10px;
+        }
+
+        .netscape-info {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .netscape-info li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .netscape-info li:before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: #000080;
+            font-weight: bold;
+        }
+
+        .netscape-highlight {
+            background-color: #e6e6fa;
+            border-left: 4px solid #000080;
+            padding: 10px;
+            margin-top: 15px;
+            font-style: italic;
+        }
+        
+        .status-bar {
+            height: 20px;
+            background-color: #c0c0c0;
+            border-top: 1px solid #808080;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            font-size: 11px;
+        }
+        
+        .window-button {
+            width: 16px;
+            height: 14px;
+            border: 1px solid white;
+            border-right: 1px solid #808080;
+            border-bottom: 1px solid #808080;
+            margin-left: 2px;
+            text-align: center;
+            line-height: 14px;
+            font-size: 9px;
+            background-color: #c0c0c0;
+        }
+        
+        /* Estilos específicos para os ícones da barra de ferramentas */
+        .back-icon:before {
+            content: "◀";
+            font-size: large;
+        }
+        
+        .forward-icon:before {
+            content: "▶";
+            font-size: 16px;
+        }
+        
+        .home-icon:before {
+            content: "🏠";
+            font-size: 16px;
+        }
+        
+        .reload-icon:before {
+            content: "↻";
+            font-size: 17px;
+            font-weight: bold;
+        }
+        
+        .images-icon:before {
+            content: "🖼️";
+            font-size: 16px;
+        }
+        
+        .open-icon:before {
+            content: "📂";
+            font-size: 16px;
+        }
+        
+        .find-icon:before {
+            content: "🔍";
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="browser-window">
+        <div class="title-bar">
+            <div class="n">N</div>
+            <span> version 1.0N</span>
+            <div class="window-controls">
+                <div class="window-button">_</div>
+                <div class="window-button">▢</div>
+                <div class="window-button">✕</div>
+            </div>
+        </div>
+        
+        <div class="menu-bar">
+            <div class="menu-item">File</div>
+            <div class="menu-item">Edit</div>
+            <div class="menu-item">View</div>
+            <div class="menu-item">Go</div>
+            <div class="menu-item">Bookmarks</div>
+            <div class="menu-item">Options</div>
+            <div class="menu-item">Directory</div>
+            <div class="menu-item" style="margin-left: auto;">Help</div>
+        </div>
+        
+        <div class="toolbar">
+            <div class="toolbar-button">
+                <div class="toolbar-icon back-icon" onclick="window.location.href= '../mosaic/index.html'"></div>
+                <span>Back</span>
+            </div>
+            <div class="toolbar-button">
+                <div class="toolbar-icon forward-icon" onclick="window.location.href= '../internet_explorer/index.html'"></div>
+                <span>Forward</span>
+            </div>
+            <div class="toolbar-button">
+                <div class="toolbar-icon home-icon"></div>
+                <span>Home</span>
+            </div>
+            <div class="toolbar-button">
+                <div class="toolbar-icon reload-icon"></div>
+                <span>Reload</span>
+            </div>
+            <div class="toolbar-button">
+                <div class="toolbar-icon images-icon"></div>
+                <span>Images</span>
+            </div>
+            <div class="toolbar-button">
+                <div class="toolbar-icon open-icon"></div>
+                <span>Open</span>
+            </div>
+            <div class="toolbar-button">
+                <div class="toolbar-icon find-icon"></div>
+                <span>Find</span>
+            </div>
+        </div>
+        
+        <div class="location-bar">
+            <span class="location-label">Location:</span>
+            <div class="location-input"></div>
+            <div class="netscape-logo"><img src="netscape-logo.png" alt=""></div>
+        </div>
+        
+        <div class="navigation-tabs">
+            <div class="nav-tab active">Welcome</div>
+            <div class="nav-tab">What's New</div>
+            <div class="nav-tab">What's Cool</div>
+            <div class="nav-tab">Questions</div>
+            <div class="nav-tab">Net Search</div>
+            <div class="nav-tab">Net Directory</div>
+        </div>
+        
+        <div class="content-area">
+            <div class="netscape-history">
+                <h1 class="netscape-title">Netscape Navigator: Revolucionando a Web</h1>
+                
+                <ul class="netscape-info">
+                    <li>Criado por ex-membros da equipe do Mosaic, o navegador nasceu de uma visão inovadora de comunicação digital.</li>
+                    
+                    <li>Melhorou a interface gráfica com ícones intuitivos e menus dropdown, tornando a navegação mais amigável e acessível.</li>
+                    
+                    <li>Introduziu o conceito de design minimalista, focando na usabilidade e na experiência do usuário.</li>
+                    
+                    <li>Trouxe suporte a JavaScript e cookies, permitindo maior interatividade e personalização nas páginas web.</li>
+                    
+                    <li>Dominou o mercado nos anos 90, definindo os padrões para navegadores modernos e moldando a web como conhecemos hoje.</li>
+                </ul>
+
+                <div class="netscape-highlight">
+                    "A revolução da internet começou aqui: simplificando a web para todos."
+                </div>
+            </div>
+        </div>
+        
+        <div class="status-bar">
+            <img src="/api/placeholder/16/16" alt="status icon" style="margin-right: 5px;">
+        </div>
+    </div>
+
+    <script>
+        // TypeScript convertido para JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simulação de cliques nos elementos da interface
+        
+            // Simulação de entrada de URL
+            const locationInput = document.querySelector('.location-input');
+            locationInput.addEventListener('click', function() {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.style.width = '100%';
+                input.style.height = '100%';
+                input.style.border = 'none';
+                input.style.outline = 'none';
+                
+                locationInput.innerHTML = '';
+                locationInput.appendChild(input);
+                input.focus();
+                
+                input.addEventListener('keydown', function(event) {
+                    if (event.key === 'Enter') {
+                        window.location.href= "../internet_explorer/index.html";
+                    }
+                });
+            });
+            const buttons = document.querySelectorAll('.toolbar-button');
+            
+            buttons.forEach(button => {
+                button.addEventListener('mousedown', function() {
+                    this.style.borderTop = '1px solid #808080';
+                    this.style.borderLeft = '1px solid #808080';
+                    this.style.borderRight = '1px solid #ffffff';
+                    this.style.borderBottom = '1px solid #ffffff';
+                });
+                
+                button.addEventListener('mouseup', function() {
+                    this.style.borderTop = '1px solid #ffffff';
+                    this.style.borderLeft = '1px solid #ffffff';
+                    this.style.borderRight = '1px solid #808080';
+                    this.style.borderBottom = '1px solid #808080';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.borderTop = '1px solid #ffffff';
+                    this.style.borderLeft = '1px solid #ffffff';
+                    this.style.borderRight = '1px solid #808080';
+                    this.style.borderBottom = '1px solid #808080';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
